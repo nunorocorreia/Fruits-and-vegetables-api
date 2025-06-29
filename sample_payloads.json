@@ -1,0 +1,94 @@
+{
+  "fruit_payloads": [
+    {
+      "description": "Add Apple in kilograms",
+      "endpoint": "POST /api/fruits",
+      "payload": {
+        "name": "Apple",
+        "type": "fruit",
+        "quantity": 2.5,
+        "unit": "kg"
+      },
+      "expected_storage": {
+        "quantity": 2500,
+        "unit": "g"
+      }
+    },
+    {
+      "description": "Add Banana in grams",
+      "endpoint": "POST /api/fruits",
+      "payload": {
+        "name": "Banana",
+        "type": "fruit",
+        "quantity": 150,
+        "unit": "g"
+      },
+      "expected_storage": {
+        "quantity": 150,
+        "unit": "g"
+      }
+    },
+    {
+      "description": "Add Orange with default unit (grams)",
+      "endpoint": "POST /api/fruits",
+      "payload": {
+        "name": "Orange",
+        "type": "fruit",
+        "quantity": 200
+      },
+      "expected_storage": {
+        "quantity": 200,
+        "unit": "g"
+      }
+    }
+  ],
+  "vegetable_payloads": [
+    {
+      "description": "Add Carrot in kilograms",
+      "endpoint": "POST /api/vegetables",
+      "payload": {
+        "name": "Carrot",
+        "type": "vegetable",
+        "quantity": 1.5,
+        "unit": "kg"
+      },
+      "expected_storage": {
+        "quantity": 1500,
+        "unit": "g"
+      }
+    },
+    {
+      "description": "Add Tomato in grams",
+      "endpoint": "POST /api/vegetables",
+      "payload": {
+        "name": "Tomato",
+        "type": "vegetable",
+        "quantity": 300,
+        "unit": "g"
+      },
+      "expected_storage": {
+        "quantity": 300,
+        "unit": "g"
+      }
+    },
+    {
+      "description": "Add Broccoli with default unit (grams)",
+      "endpoint": "POST /api/vegetables",
+      "payload": {
+        "name": "Broccoli",
+        "type": "vegetable",
+        "quantity": 500
+      },
+      "expected_storage": {
+        "quantity": 500,
+        "unit": "g"
+      }
+    }
+  ],
+  "curl_examples": {
+    "add_fruit_kg": "curl -X POST http://127.0.0.1:8080/api/fruits \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"name\": \"Apple\",\n    \"type\": \"fruit\",\n    \"quantity\": 2.5,\n    \"unit\": \"kg\"\n  }'",
+    "add_fruit_g": "curl -X POST http://127.0.0.1:8080/api/fruits \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"name\": \"Banana\",\n    \"type\": \"fruit\",\n    \"quantity\": 150,\n    \"unit\": \"g\"\n  }'",
+    "add_vegetable_kg": "curl -X POST http://127.0.0.1:8080/api/vegetables \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"name\": \"Carrot\",\n    \"type\": \"vegetable\",\n    \"quantity\": 1.5,\n    \"unit\": \"kg\"\n  }'",
+    "add_vegetable_g": "curl -X POST http://127.0.0.1:8080/api/vegetables \\\n  -H 'Content-Type: application/json' \\\n  -d '{\n    \"name\": \"Tomato\",\n    \"type\": \"vegetable\",\n    \"quantity\": 300,\n    \"unit\": \"g\"\n  }'"
+  }
+} 

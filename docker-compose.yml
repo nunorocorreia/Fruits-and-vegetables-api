@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  fruits-and-vegetables:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: fruits-and-vegetables
+    ports:
+      - "8080:8080"
+      - "9003:9003"
+    volumes:
+      - .:/app
