@@ -367,89 +367,9 @@ GET /api/fruits?sort[date_upd]=desc
 GET /api/fruits?sort[date_add]=desc&sort[name]=asc
 ```
 
-### Customizing SortableTrait
-
-Each service can customize the sorting behavior by overriding the trait methods:
-
-```php
-use App\Trait\SortableTrait;
-
-class CustomService
-{
-    use SortableTrait;
-    
-    // Override allowed fields for this service
-    protected function getAllowedSortFields(): array
-    {
-        return ['id', 'name', 'created_at', 'updated_at'];
-    }
-    
-    // Override default sort field
-    protected function getDefaultSortField(): string
-    {
-        return 'created_at';
-    }
-}
-```
-
-### Security Features
-
-- **Field Validation**: Only predefined fields can be sorted
-- **Direction Validation**: Only `asc` and `desc` are accepted
-- **SQL Injection Protection**: Uses parameterized queries
-- **Default Behavior**: Falls back to safe defaults if invalid input
-
 ## 🧪 Testing
 
 ### Run Tests
 ```bash
 bin/phpunit
 ```
-
-### Test Coverage
-- Service layer tests
-- JSON processing tests
-- Storage service tests
-- Sorting functionality tests
-
-## 🏗️ Architecture
-
-The application follows clean architecture principles:
-
-- **Controllers**: Handle HTTP requests and responses
-- **Services**: Business logic and data processing
-- **Repositories**: Data access layer
-- **Entities**: Domain models
-- **DTOs**: Data transfer objects for API requests
-- **Resources**: Response formatting and transformation
-- **Traits**: Reusable functionality (SortableTrait, ResponseTrait)
-
-### SortableTrait Architecture
-
-The `SortableTrait` provides a reusable sorting solution:
-
-```
-┌─────────────────┐
-│   Controller    │ ← Receives sort parameters
-└─────────┬───────┘
-          │
-┌─────────▼───────┐
-│   Service       │ ← Uses SortableTrait
-│  (with Trait)   │
-└─────────┬───────┘
-          │
-┌─────────▼───────┐
-│ SortableTrait   │ ← Reusable sorting logic
-└─────────┬───────┘
-          │
-┌─────────▼───────┐
-│ QueryBuilder    │ ← Applies sorting to query
-└─────────────────┘
-```
-
-**Benefits:**
-- **Reusability**: Can be used across multiple services
-- **Consistency**: Same sorting behavior everywhere
-- **Maintainability**: Single place to update sorting logic
-- **Security**: Centralized field validation
-- **Flexibility**: Each service can customize allowed fields
