@@ -5,6 +5,8 @@ namespace App\Service;
 use App\Enum\ItemType;
 use App\Service\FruitCollectionManager;
 use App\Service\VegetableCollectionManager;
+use InvalidArgumentException;
+use RuntimeException;
 
 class JsonProcessorService
 {
@@ -20,14 +22,14 @@ class JsonProcessorService
     public function processFile(string $filePath = 'request.json'): array
     {
         if (!file_exists($filePath)) {
-            throw new \RuntimeException("File {$filePath} not found!");
+            throw new RuntimeException("File {$filePath} not found!");
         }
 
         $jsonContent = file_get_contents($filePath);
         $data = json_decode($jsonContent, true, 512, JSON_THROW_ON_ERROR);
 
         if (!is_array($data)) {
-            throw new \RuntimeException('Invalid JSON format: expected an array');
+            throw new RuntimeException('Invalid JSON format: expected an array');
         }
 
         return $this->processData($data);
@@ -69,14 +71,14 @@ class JsonProcessorService
     private function processItem(array $item): array
     {
         if (!isset($item['name'], $item['type'], $item['quantity'], $item['unit'])) {
-            throw new \InvalidArgumentException('Missing required fields: name, type, quantity, unit');
+            throw new InvalidArgumentException('Missing required fields: name, type, quantity, unit');
         }
 
         // Validate and convert type using enum
         try {
             $itemType = ItemType::fromString($item['type']);
-        } catch (\InvalidArgumentException $e) {
-            throw new \InvalidArgumentException("Invalid type '{$item['type']}' for item '{$item['name']}'");
+        } catch (InvalidArgumentException $e) {
+            throw new InvalidArgumentException("Invalid type '{$item['type']}' for item '{$item['name']}'");
         }
 
         $itemData = [
@@ -94,6 +96,6 @@ class JsonProcessorService
             return ['type' => ItemType::VEGETABLE->value];
         }
 
-        throw new \InvalidArgumentException("Invalid type '{$item['type']}' for item '{$item['name']}'");
+        throw new InvalidArgumentException("Invalid type '{$item['type']}' for item '{$item['name']}'");
     }
-} 
+}

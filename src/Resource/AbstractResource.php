@@ -20,41 +20,23 @@ abstract class AbstractResource
         return [
             'id' => $entity->getId(),
             'name' => $entity->getName(),
-            'type' => $entity->getType(),
+            'type' => static::getDefaultType()->value,
             'quantity' => $displayQuantity,
-            'unit' => $unit
+            'unit' => $unit,
+            'date_add' => $entity->getDateAdd()?->format('Y-m-d H:i:s'),
+            'date_upd' => $entity->getDateUpd()?->format('Y-m-d H:i:s')
         ];
     }
-    
+
     public static function collection(array $entities, string $unit = 'g'): array
     {
         return array_map(function (object $entity) use ($unit) {
             return static::toArray($entity, $unit);
         }, $entities);
     }
-    
-    public static function fromRequest(array $data): array
-    {
-        // Convert input to grams for storage
-        $inputQuantity = $data['quantity'] ?? 0;
-        $inputUnit = $data['unit'] ?? 'g';
-        
-        if ($inputUnit === 'kg') {
-            $quantityInGrams = $inputQuantity * 1000;
-        } else {
-            $quantityInGrams = $inputQuantity; // Already in grams
-        }
-        
-        return [
-            'name' => $data['name'] ?? '',
-            'type' => $data['type'] ?? static::getDefaultType()->value,
-            'quantity' => $quantityInGrams,
-            'unit' => 'g' // Always store as grams
-        ];
-    }
 
     /**
      * Get the default type for this resource
      */
     abstract protected static function getDefaultType(): ItemType;
-} 
+}

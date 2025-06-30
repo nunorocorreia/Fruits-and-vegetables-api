@@ -25,9 +25,9 @@ final class Version20250628102432 extends AbstractMigration
             CREATE TABLE fruit (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 name VARCHAR(255) NOT NULL, 
-                type VARCHAR(50) NOT NULL, 
                 quantity INTEGER NOT NULL, 
-                unit VARCHAR(10) NOT NULL
+                date_add DATETIME NOT NULL,
+                date_upd DATETIME NOT NULL
             )
         SQL
         );
@@ -36,9 +36,9 @@ final class Version20250628102432 extends AbstractMigration
             CREATE TABLE vegetable (
                 id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
                 name VARCHAR(255) NOT NULL,
-                type VARCHAR(50) NOT NULL,
                 quantity INTEGER NOT NULL,
-                unit VARCHAR(10) NOT NULL
+                date_add DATETIME NOT NULL,
+                date_upd DATETIME NOT NULL
             )
         SQL
         );

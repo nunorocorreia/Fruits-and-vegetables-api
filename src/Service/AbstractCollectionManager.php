@@ -3,7 +3,7 @@
 namespace App\Service;
 
 use App\DTO\AddItemDTO;
-use App\Resource\FruitResource;
+use App\Trait\SortableTrait;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
@@ -11,7 +11,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class AbstractCollectionManager
 {
-    protected string $resourceClass;
+    use SortableTrait;
+
     protected string $entityClass;
 
     public function __construct(
@@ -22,22 +23,20 @@ abstract class AbstractCollectionManager
     }
 
     /**
-     * List items with optional filtering
+     * List items with optional filtering and sorting
      */
     public function list(array $filters = [], array $sorts = [], string $unit = 'g'): array
     {
-        $criteria = [];
-
-        // Apply filters
-        if (isset($filters['type'])) {
-            $criteria['type'] = $filters['type'];
-        }
+        $queryBuilder = $this->repository->createQueryBuilder('i');
 
         if (isset($filters['name'])) {
-            $criteria['name'] = $filters['name'];
+            $queryBuilder->andWhere('i.name = :name')
+                ->setParameter('name', $filters['name']);
         }
 
-        $items = $this->repository->findBy($criteria);
+        $this->applySorting($queryBuilder, $sorts);
+
+        $items = $queryBuilder->getQuery()->getResult();
 
         return $this->getResourceClass()::collection($items, $unit);
     }
@@ -47,17 +46,13 @@ abstract class AbstractCollectionManager
      */
     public function add(array $data): array
     {
-        $itemData = $this->getResourceClass()::fromRequest($data);
+        $existingItem = $this->repository->findOneBy(['name' => $data['name']]);
 
-        // Check if item with same name already exists
-        $existingItem = $this->repository->findOneBy(['name' => $itemData['name']]);
-        
         if ($existingItem) {
-            // Add quantities to existing item
-            $quantityInGrams = $this->convertToGrams($itemData['quantity'], $data['unit'] ?? 'g');
+            $quantityInGrams = $this->convertToGrams($data['quantity'], $data['unit'] ?? 'g');
             $newTotalQuantity = $existingItem->getQuantity() + $quantityInGrams;
             $existingItem->setQuantity($newTotalQuantity);
-            
+
             $errors = $this->validator->validate($existingItem);
             if (count($errors) > 0) {
                 $errorMessages = [];
@@ -66,21 +61,17 @@ abstract class AbstractCollectionManager
                 }
                 throw new InvalidArgumentException('Validation failed: ' . implode(', ', $errorMessages));
             }
-            
+
             $this->entityManager->flush();
-            
+
             return $this->getResourceClass()::toArray($existingItem, 'g');
         }
 
-        // Create new item if it doesn't exist
         $item = $this->createEntity();
-        $item->setName($itemData['name']);
-        $item->setType($itemData['type']);
+        $item->setName($data['name']);
 
-        $quantityInGrams = $this->convertToGrams($itemData['quantity'], $data['unit'] ?? 'g');
+        $quantityInGrams = $this->convertToGrams($data['quantity'], $data['unit'] ?? 'g');
         $item->setQuantity($quantityInGrams);
-
-        $item->setUnit('g');
 
         $errors = $this->validator->validate($item);
         if (count($errors) > 0) {
@@ -127,19 +118,21 @@ abstract class AbstractCollectionManager
     }
 
     /**
-     * Search items by name
+     * Search items by name with optional sorting
      */
-    public function search(string $query, string $unit = 'g'): array
+    public function search(string $query, string $unit = 'g', array $sorts = []): array
     {
         if (empty($query)) {
             throw new InvalidArgumentException('Search query is required');
         }
 
-        $items = $this->repository->createQueryBuilder('i')
+        $queryBuilder = $this->repository->createQueryBuilder('i')
             ->where('i.name LIKE :query')
-            ->setParameter('query', '%' . $query . '%')
-            ->getQuery()
-            ->getResult();
+            ->setParameter('query', '%' . $query . '%');
+
+        $this->applySorting($queryBuilder, $sorts);
+
+        $items = $queryBuilder->getQuery()->getResult();
 
         return $this->getResourceClass()::collection($items, $unit);
     }

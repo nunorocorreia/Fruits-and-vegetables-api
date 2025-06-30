@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FruitRepository;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FruitRepository::class)]
@@ -16,14 +18,20 @@ class Fruit
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $type = null;
-
     #[ORM\Column]
     private ?int $quantity = null;
 
-    #[ORM\Column(length: 10)]
-    private ?string $unit = null;
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTimeInterface $dateAdd = null;
+
+    #[ORM\Column(type: 'datetime')]
+    private ?DateTimeInterface $dateUpd = null;
+
+    public function __construct()
+    {
+        $this->dateAdd = new DateTime();
+        $this->dateUpd = new DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -38,17 +46,7 @@ class Fruit
     public function setName(string $name): static
     {
         $this->name = $name;
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
+        $this->updateDateUpd();
         return $this;
     }
 
@@ -60,17 +58,34 @@ class Fruit
     public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
+        $this->updateDateUpd();
         return $this;
     }
 
-    public function getUnit(): ?string
+    public function getDateAdd(): ?DateTimeInterface
     {
-        return $this->unit;
+        return $this->dateAdd;
     }
 
-    public function setUnit(string $unit): static
+    public function setDateAdd(DateTimeInterface $dateAdd): static
     {
-        $this->unit = $unit;
+        $this->dateAdd = $dateAdd;
         return $this;
+    }
+
+    public function getDateUpd(): ?DateTimeInterface
+    {
+        return $this->dateUpd;
+    }
+
+    public function setDateUpd(DateTimeInterface $dateUpd): static
+    {
+        $this->dateUpd = $dateUpd;
+        return $this;
+    }
+
+    private function updateDateUpd(): void
+    {
+        $this->dateUpd = new DateTime();
     }
 }

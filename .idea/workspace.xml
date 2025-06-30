@@ -4,7 +4,28 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4d0cd2c4-a332-4ced-b050-17bf99d5e0d1" name="Changes" comment="initialize project structure with basic configuration and setup" />
+    <list default="true" id="4d0cd2c4-a332-4ced-b050-17bf99d5e0d1" name="Changes" comment="initialize project structure with basic configuration and setup">
+      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Trait/SortableTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/app.db" beforeDir="false" afterPath="$PROJECT_DIR$/database/app.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20250628102432.php" beforeDir="false" afterPath="$PROJECT_DIR$/migrations/Version20250628102432.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migrations/Version20250628102500.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/FruitController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/FruitController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/VegetableController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/VegetableController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Fruit.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Fruit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Vegetable.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Vegetable.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Enum/ItemType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Enum/ItemType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Resource/AbstractResource.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Resource/AbstractResource.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/AbstractCollectionManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/AbstractCollectionManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/FruitCollectionManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/FruitCollectionManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/JsonProcessorService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/JsonProcessorService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/StorageService.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/VegetableCollectionManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/VegetableCollectionManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/App/Service/StorageServiceTest.php" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,12 +44,12 @@
     &quot;assignee&quot;: &quot;nunorocorreia&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/nunorocorreia/fruits-and-vegetables.git&quot;,
-    &quot;accountId&quot;: &quot;1f9c4947-43dd-4609-81dd-8a61c26f53fb&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/nunorocorreia/fruits-and-vegetables2-.git",
+    "accountId": "1f9c4947-43dd-4609-81dd-8a61c26f53fb"
   }
-}</component>
+}]]></component>
   <component name="PhpServers">
     <servers>
       <server host="127.0.0.1" id="9eda416c-8a60-4114-a2f0-08926ac0bcc9" name="fruit-app" port="8080" use_path_mappings="true">
@@ -210,6 +231,7 @@
       <workItem from="1751208308862" duration="681000" />
       <workItem from="1751208993929" duration="108000" />
       <workItem from="1751209105297" duration="30000" />
+      <workItem from="1751209137510" duration="6061000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project structure with basic configuration and setup">
       <option name="closed" value="true" />
@@ -219,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751208348602</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="initialize project structure with basic configuration and setup">
+      <option name="closed" value="true" />
+      <created>1751209168463</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1751209168463</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

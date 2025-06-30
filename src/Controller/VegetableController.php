@@ -81,11 +81,12 @@ class VegetableController extends AbstractController
     #[Route('/search', name: 'search_vegetables', methods: ['GET'])]
     public function search(Request $request): JsonResponse
     {
-        $query = $request->query->get('q', '');
+        $query = $request->query->get('name', '');
         $unit = $request->query->get('unit', 'g');
+        $sorts = $request->query->all('sort');
 
         try {
-            $items = $this->vegetableCollectionManager->search($query, $unit);
+            $items = $this->vegetableCollectionManager->search($query, $unit, $sorts);
             return $this->successResponse($items);
         } catch (InvalidArgumentException $e) {
             return $this->errorResponse($e->getMessage());

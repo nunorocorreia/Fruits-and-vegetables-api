@@ -7,6 +7,7 @@ use App\Repository\FruitRepository;
 use App\Resource\FruitResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Enum\ItemType;
 
 class FruitCollectionManager extends AbstractCollectionManager
 {
@@ -25,7 +26,7 @@ class FruitCollectionManager extends AbstractCollectionManager
 
     protected function getEntityName(): string
     {
-        return 'Fruit';
+        return ItemType::FRUIT->value;
     }
 
     protected function createEntity(): object

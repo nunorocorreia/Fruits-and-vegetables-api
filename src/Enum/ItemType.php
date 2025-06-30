@@ -2,6 +2,8 @@
 
 namespace App\Enum;
 
+use InvalidArgumentException;
+
 enum ItemType: string
 {
     case FRUIT = 'fruit';
@@ -17,7 +19,7 @@ enum ItemType: string
         return match ($value) {
             'fruit' => self::FRUIT,
             'vegetable' => self::VEGETABLE,
-            default => throw new \InvalidArgumentException("Invalid item type: {$value}")
+            default => throw new InvalidArgumentException("Invalid item type: {$value}")
         };
     }
 
@@ -28,4 +30,4 @@ enum ItemType: string
             self::VEGETABLE => 'Vegetable',
         };
     }
-} 
+}

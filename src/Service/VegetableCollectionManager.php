@@ -7,6 +7,7 @@ use App\Repository\VegetableRepository;
 use App\Resource\VegetableResource;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Enum\ItemType;
 
 class VegetableCollectionManager extends AbstractCollectionManager
 {
@@ -25,7 +26,7 @@ class VegetableCollectionManager extends AbstractCollectionManager
 
     protected function getEntityName(): string
     {
-        return 'Vegetable';
+        return ItemType::VEGETABLE->value;
     }
 
     protected function createEntity(): object
